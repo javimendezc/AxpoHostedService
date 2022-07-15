@@ -1,13 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
+﻿using Axpo;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using Axpo;
 using Serilog.Events;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace AxpoHostedService
 {
@@ -20,16 +20,7 @@ namespace AxpoHostedService
                 {
                     configBuilder.SetBasePath(Directory.GetCurrentDirectory());
                     configBuilder.AddJsonFile("appsettings.json", optional: true);
-                    configBuilder.AddJsonFile(
-                        $"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json",
-                        optional: true);
                 })
-                //.ConfigureLogging((hostContext, configLogging) =>
-                //{
-                //    configLogging.AddConfiguration(hostContext.Configuration.GetSection("Logging"));
-                //    configLogging.AddConsole();
-                //    configLogging.AddFile("log.log");
-                //})
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddTransient<IPowerService, PowerService>();
@@ -52,9 +43,6 @@ namespace AxpoHostedService
                                 .MinimumLevel.Debug()
                                 .WriteTo.File("log.log")
                                 .WriteTo.Console(LogEventLevel.Information));
-
-
-
 
             await hostBuilder.RunConsoleAsync();
         }
