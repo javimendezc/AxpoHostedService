@@ -23,6 +23,7 @@ namespace AxpoHostedService
         {
             Random rnd = new Random();
             _interval += rnd.Next(-60, 60);
+            if (_interval < 1) _interval = 1;   //Min interval 1 seg   
             _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(_interval));
             return Task.CompletedTask;
         }

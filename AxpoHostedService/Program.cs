@@ -24,7 +24,7 @@ namespace AxpoHostedService
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddTransient<IPowerService, PowerService>();
-                    services.AddTransient<IWorker, DummyWorker>();
+                    services.AddTransient<IWorker, Worker>();
                     services.AddTransient<IReportGen>((serviceProvider) =>
                     {
                         var pathCsv = serviceProvider.GetRequiredService<IConfiguration>().GetSection("path_csv").Value;
@@ -40,8 +40,6 @@ namespace AxpoHostedService
                 })
                 .UseSerilog((hostingContext, services, loggerConfiguration) => loggerConfiguration
                                 .ReadFrom.Configuration(hostingContext.Configuration)
-                                .MinimumLevel.Debug()
-                                .WriteTo.File("log.log")
                                 .WriteTo.Console(LogEventLevel.Information));
 
             await hostBuilder.RunConsoleAsync();
