@@ -10,7 +10,7 @@ IDE Visual Studio 2022
 	* **path_csv**: path where csv will be located
 	* **Serilog**: loggin configuration
 
-- [program.cs](AxpoHostedService/program.cs): Application entry point. A host with information about the settings file, services dependency injection and the log system is configured. One of the services that this host starts is a timer, which will trigger a worker every time interval established in the appsettings file.
+- [Program.cs](AxpoHostedService/Program.cs): Application entry point. A host with information about the settings file, services dependency injection and the log system is configured. One of the services that this host starts is a timer, which will trigger a worker every time interval established in the appsettings file.
 - [TimeHostedService.cs](AxpoHostedService/TimeHostedService.cs): Execute each X seconds the .DoWork() of a service witch implements de interface IWorker
 - **Implementation** 
 	* [DummyWorker.cs](AxpoHostedService/Implementation/DummyWorker.cs): A dummy implementation for IWorker
